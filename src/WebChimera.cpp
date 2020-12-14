@@ -1,3 +1,7 @@
+#ifdef __linux__
+#include <unistd.h>
+#endif
+
 #include <node.h>
 #include <v8.h>
 
@@ -11,6 +15,14 @@ NODE_MODULE_INITIALIZER(
     v8::Local<v8::Context> context)
 {
     using namespace v8;
+
+#if defined(__linux__) && !defined(NDEBUG) && 0
+    printf("WebChimera.js process pid: %ld\n", (long)getpid());
+    int i = 0;
+    do {
+        usleep(100000);  // sleep for 0.1 seconds
+    } while(!i);
+#endif
 
     thisModule.Reset(v8::Isolate::GetCurrent(), Local<Object>::Cast(module));
 
