@@ -333,7 +333,7 @@ JsVlcPlayer::JsVlcPlayer(
     _libvlc(nullptr)
 {
     using namespace v8;
-
+    assert(false);
     Wrap(thisObject);
 
     _instances.insert(this);
@@ -377,6 +377,7 @@ JsVlcPlayer::JsVlcPlayer(
         _player.register_callback(this);
         VlcVideoOutput::open(&_player.basic_player());
     } else {
+        perror("==JD==\n");
         assert(false);
     }
 
@@ -401,7 +402,18 @@ void JsVlcPlayer::initLibvlc(const v8::Local<v8::Array>& vlcOpts)
     }
 
     if(vlcOpts.IsEmpty() || vlcOpts->Length() == 0) {
-        _libvlc = libvlc_new(0, nullptr);
+        const char* vlcArgsDef[] = { "-vv",
+                            "--no-avcodec-hurry-up",
+                            "--no-video-title-show",
+                            "--video-on-top",
+                            "--video-title",
+                            "MINA Player",
+                            "\0" };
+
+        auto vlcArgs = vlcArgsDef;
+        int vlcArgsLen = sizeof(vlcArgsDef) / sizeof(const char*) - 1;
+
+        _libvlc = libvlc_new(vlcArgsLen, vlcArgs);
     } else {
         std::deque<std::string> opts;
         std::vector<const char*> libvlcOpts;

@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.1)
 
+add_compile_options(/MDd /Od /DEBUG:FULL)
+
+set(CMAKE_BUILD_TYPE "Debug")
+
 project(WebChimera.js)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -13,6 +17,9 @@ if(MSVC)
            string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
         endif()
     endforeach()
+
+    message(AAAAAAAAAAAAA"${flag_var}")
+
 elseif(APPLE)
     set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/deps/VLC.app/Contents/MacOS/lib")
 endif()
