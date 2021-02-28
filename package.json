@@ -20,6 +20,6 @@
     "cmake-js": "*"
   },
   "scripts": {
-    "wr_vs_dev_install_dummy": "node rebuild.js"
+    "install": "node rebuild.js"
   }
 }
