@@ -1,8 +1,8 @@
 function build() {
     var cmakeJS = require("cmake-js");
 
-    var defaultRuntime = "nw";
-    var defaultRuntimeVersion = "0.12.3";
+    var defaultRuntime = "electron";
+    var defaultRuntimeVersion = "10.4.1";
     var defaultWinArch = "ia32";
 
     var options = {
